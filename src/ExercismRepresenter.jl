@@ -12,7 +12,6 @@ function dump_code(representer::Representer)
     repr(representer.tree)
 end
 
-# Write your package code here.
 function represent(directory::String, slug::String)
     src = joinpath(directory, slug*".jl")
     # debug_out_dest = joinpath(directory, "representation.out")
@@ -27,20 +26,27 @@ function represent(directory::String, slug::String)
     representation = Representer(src_text)
 
     # save dump of the initial tree for debug
-    # out = ["# BEGIN TREE BEFORE", representation.dump_tree(), ""]
+    # out = "# BEGIN TREE BEFORE" * dump_tree(representation)
 
     # normalize the tree
-    # normalize(representation)
+    # representation = normalize(representation)
 
     # save dump of the normalized tree for debug
-    # out.extend(["# BEGIN TREE AFTER", representation.dump_tree()])
+    # out *= "# BEGIN TREE AFTER" * dump_tree(representation)
 
     # dump the representation files
-    # debug_out_dest.write_text("\n".join(out))
+    
+    # open(debug_out_dest, "w") do dest_f
+    #     write(dest_f, out)
+    # end
+        
     open(text_dest, "w") do dest_f
         write(dest_f, dump_code(representation))
     end
-    # map_dest.write_text(representation.dump_map())
+    
+    # open(map_dest, "w") do dest_f
+    #    write(dest_f, dump_map(representation))
+    # end
     
 end
 
