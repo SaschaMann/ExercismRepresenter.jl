@@ -18,9 +18,7 @@ function represent(directory::String, slug::String)
     text_dest = joinpath(directory, "representation.txt")
     # map_dest = joinpath(directory, "mapping.json")
 
-    src_text = open(src, "r") do src_f
-        read(src_f, String)
-    end
+    src_text = read(src, String)
 
     # parse the tree from the file contents
     representation = Representer(src_text)
@@ -36,17 +34,11 @@ function represent(directory::String, slug::String)
 
     # dump the representation files
     
-    # open(debug_out_dest, "w") do dest_f
-    #     write(dest_f, out)
-    # end
-        
-    open(text_dest, "w") do dest_f
-        write(dest_f, dump_code(representation))
-    end
+    # write(debug_out_dest, out)
+      
+    write(text_dest, dump_code(representation))
     
-    # open(map_dest, "w") do dest_f
-    #    write(dest_f, dump_map(representation))
-    # end
+    # write(map_dest, dump_map(representation))
     
 end
 
